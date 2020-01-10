@@ -30,5 +30,6 @@ jobs:
       - run: npm i npm-check -g
       - run: npm --version
       - run: npm ci
-      - run: npm run build
       - run: npx ava -u
+      - run: npm run build
+
