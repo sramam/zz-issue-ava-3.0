@@ -12,24 +12,16 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        node: [12, 13]
-        os: [ubuntu-latest, windows-latest, macos-latest]
+        node: [12]
+        os: [ubuntu-latest]
     name: build.${{ matrix.os }}.${{ matrix.node }}
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v1
-      - uses: shogo82148/actions-setup-perl@v1
-        with:
-          perl-version: '5.30'
-      - run: perl -V
       - uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node }}
-      - run: node --version
-      # npm-check has dependencies with vulnerabilities.
-      - run: npm i npm-check -g
-      - run: npm --version
       - run: npm ci
+      - run: npm run compile
       - run: npx ava -u
-      - run: npm run build
 
