@@ -17,3 +17,5 @@ npx ava -u
 
 [Test](https://github.com/sramam/zz-issue-ava-3.0/blob/master/src/test/index.ts#L10)
 
+[Build failures](https://github.com/sramam/zz-issue-ava-3.0/commit/1b5a0df5f4d6b6a8a69ffecdb2402f3a21710aff/checks?check_suite_id=394005505)
+
