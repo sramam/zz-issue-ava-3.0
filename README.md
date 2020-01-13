@@ -3,20 +3,56 @@
 [ava issus #2357](https://github.com/avajs/ava/issues/2357)
 
 
-## To compile
+## Steps to reproduce
+
+### Install & compile module
 
 ```
 npm install
 npm run compile
-npx ava -u
 ```
 
+### Source of [long-running test](https://github.com/sramam/zz-issue-ava-3.0/blob/master/src/test/index.ts#L15)
 
-[Ava config](https://github.com/sramam/zz-issue-ava-3.0/blob/master/package.json#L76)
+```
+test(`timeout test`, async (t) => {
+  t.timeout(15000);
+  await delay(12 * 1000);
+  t.pass();
+});
 
-[Per](https://github.com/avajs/ava/issues/2357#issuecomment-572955621), I tried inverting the globs in "ignoredByWatcher" to no avail.
+```
 
-[Test](https://github.com/sramam/zz-issue-ava-3.0/blob/master/src/test/index.ts#L10)
+### Run with default timeout
+```
+npx ava --verbose
+```
 
-[Build failures](https://github.com/sramam/zz-issue-ava-3.0/commit/1b5a0df5f4d6b6a8a69ffecdb2402f3a21710aff/checks?check_suite_id=394005505)
+The long running test times-out:
+```
+$ npx ava --verbose
 
+  ✔ snapshot-test
+  ✔ main
+
+  ✖ Timed out while running tests
+
+  1 tests were pending in dist/test/index.js
+
+  ◌ timeout test
+
+
+  2 tests passed
+```
+
+### Run with cli based timeout setting
+
+```
+$ npx ava -T 12500 --verbose
+
+  ✔ snapshot-test
+  ✔ main
+  ✔ timeout test (12s)
+
+  3 tests passed
+```
