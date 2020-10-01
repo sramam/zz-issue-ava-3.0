@@ -101,7 +101,7 @@
   },
   "dependencies": {},
   "devDependencies": {
-    "@actions/core": "^1.2.0",
+    "@actions/core": "^1.2.6",
     "@types/node": "^13.1.6",
     "ava": "^3.0.0-beta.2",
     "cloc": "^2.5.1",
